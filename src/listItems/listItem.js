@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Button, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Button } from 'react-native';
 
 import PropTypes from 'prop-types';
 
-const { width: viewportWidth } = Dimensions.get('window');
-
-class GridItem extends PureComponent {
+class ListItem extends PureComponent {
   render() {
     const { container, imageContainer, image, buttonContainer, text } = styles;
     const { imageSource, name } = this.props;
@@ -13,41 +11,41 @@ class GridItem extends PureComponent {
     return (
       <View style = { container }>
         <View style = { imageContainer }>
-          <Image
-            source = {{ uri: imageSource }}
-            style = { image }/>
-            <Text style = { text }>{ name }</Text>
+          <Image source = { imageSource } style = { image }/>
         </View>
 
+        <Text style = { text }> { name }</Text>
+
         <View style = { buttonContainer }>
-            <Button
-              title = "ADD"
-              onPress = { () => {} }
-            />
+          <Button
+            title = "REMOVE"
+            onPress = { () => {} }
+          />
         </View>
       </View>
     );
+
   }
 }
 
-GridItem.propTypes = {
-  image: PropTypes.string,
+ListItem.propTypes = {
+  image: PropTypes.object,
   name: PropTypes.string
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 150,
-    width: viewportWidth/3 - 10,
+    flex: 1,
+    flexDirection: 'row',
+    height: 80,
     backgroundColor: '#edeaea',
-    borderRadius: 5,
     justifyContent: 'space-between',
-    marginVertical: 5,
-    marginHorizontal: 5,
+    alignItems: 'center',
+    padding: 10
   },
   imageContainer: {
     height: 80,
-    flex: 1,
+    width: 80,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -56,19 +54,18 @@ const styles = StyleSheet.create({
     width: 40,
     borderRadius: 20,
     overflow: 'hidden',
-    backgroundColor: 'white',
-    resizeMode: 'contain'
+    backgroundColor: 'white'
   },
   buttonContainer: {
-    flex: 1,
+    width: 100,
+    height: 120,
     justifyContent: 'center',
     alignItems: 'center'
   },
   text: {
-    marginTop:5,
     fontSize: 14,
     textAlign: 'center'
   }
 });
 
-export { GridItem };
+export { ListItem };
