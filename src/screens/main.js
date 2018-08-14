@@ -11,6 +11,8 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { added: [] };
+
     this.gridData = [
       {
         image: 'https://www.iexpats.com/wp-content/uploads/2016/07/happy-man-696x464.jpg',
@@ -38,8 +40,15 @@ class Main extends Component {
       }];
   }
 
+  componentWillReceiveProps({ screenProps }) {
+    console.log('called');
+    this.setState({ added: screenProps.list[0] });
+  }
+
   render() {
     const { container, text, sectionHeader, gridContainerStyle } = styles;
+    this.props.screenProps.addListItem('People');
+
 
     return (
       <View style = { container }>
@@ -47,8 +56,10 @@ class Main extends Component {
           <View>
             <Text style = { sectionHeader }>Added People</Text>
           </View>
+
           <FlatList
-            data = {[{ image: null, name: 'Name 1'}, { image: null, name: 'Name 2'}]}
+            data = { this.state.added }
+            extraData = { this.state }
             keyExtractor = { item => item.name }
             renderItem = { ({ item }) => <ListItem name= { item.name } imageSource = { item.image }/>}/>
 
@@ -60,7 +71,7 @@ class Main extends Component {
             data = { this.gridData }
             numColumns = { 3 }
             keyExtractor = { item => item.name }
-            renderItem = { ({ item }) => <GridItem name= { item.name } imageSource = { item.image }/>}/>
+            renderItem = { ({ item }) => <GridItem name= { item.name } imageSource = { item.image } onButtonPress = { () => this.props.screenProps.addItem('People', item)}/>}/>
         </ScrollView>
       </View>
     );

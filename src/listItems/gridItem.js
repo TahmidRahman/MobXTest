@@ -22,7 +22,7 @@ class GridItem extends PureComponent {
         <View style = { buttonContainer }>
             <Button
               title = "ADD"
-              onPress = { () => {} }
+              onPress = { () => this.props.onButtonPress() }
             />
         </View>
       </View>
